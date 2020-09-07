@@ -1,0 +1,30 @@
+.upload-drag-drop {
+    background-color: #eeeeee;
+    padding: 2rem 0;
+}
+.upload-drag-drop__input {
+    opacity: 0;
+    position: absolute;
+    z-index: -9999;
+    /*user-select: none;*/
+    /*height: 0.01px;*/
+    /*width: 0.01px;*/
+}
+.upload-drag-drop__icon {
+    height: 40px;
+}
+.upload-drag-drop__btn {
+    margin-top: 1.5rem;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 1.5rem;
+    background-color: #3f6cce;
+}
+.upload-drag-drop__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
