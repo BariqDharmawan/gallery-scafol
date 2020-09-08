@@ -7,7 +7,6 @@
 	"require": {
 		"php": ">=7.2",
 		"codeigniter4/framework": "^4",
-		"illuminate/database": "^7.27",
 		"fzaninotto/faker": "^1.9",
 		"bluemmb/faker-picsum-photos-provider": "^1.0",
 		"myth/auth": "^1.0@beta"

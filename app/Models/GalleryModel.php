@@ -2,24 +2,26 @@
 
 namespace App\Models;
 
-
 use CodeIgniter\Model;
 
 class GalleryModel extends Model
 {
 
-    protected $deletedField  = 'deleted_at';
     protected $table = 'gallery';
     protected $primaryKey = 'id';
     protected $useTimestamps = true;
-    protected $allowedFields = ['photo', 'caption', 'category_id', 'pemilik'];
-
+    protected $returnType = 'array';
+    protected $allowedFields = ['cover', 'caption', 'pemilik', 'category'];
     public function getGallery($id = false)
     {
         if ($id == false) {
-            return $this->findAll();
+            return $this->orderBy('id', 'DESC')
+                ->findAll();
         }
-        return $this->where(['id', $id])->first();
+        return $this->where(['id', $id])
+            ->join('gallery_slideshow','gallery_slideshow.gallery_id = gallery.id')
+            ->orderBy('DESC')
+            ->first();
     }
     public function updateProduct($data, $id)
     {

@@ -29,13 +29,13 @@
             transform: translateX(50%);
             right: 50%;
         }
-        #galleryDetail .dropdown-toggle::after {
+        [id*='galleryDetail'] .dropdown-toggle::after {
             content: none;
         }
-        #galleryDetail .card__detail-header {
+        [id*='galleryDetail'] .card__detail-header {
             position: relative;
         }
-        #galleryDetail .card__detail-header .btn-group {
+        [id*='galleryDetail'] .card__detail-header .btn-group {
             position: absolute;
             top: 0;
             right: 0;

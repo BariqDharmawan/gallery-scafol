@@ -33,8 +33,8 @@ $routes->setAutoRoute(true);
 $routes->get('routing', function (){
     print_r($this->router->routes);
 });
-$routes->get('/', 'Home::index');
-$routes->get('gallery', 'GalleryController::index', ['as' => 'gallery.index']);
+$routes->get('/', 'GalleryController::index', ['as' => 'gallery.index']);
+$routes->get('gallery/filter/(:any)', 'GalleryController::filter/$1', ['as' => 'gallery.filter']);
 $routes->post('gallery/post', 'GalleryController::store', ['as' => 'gallery.store']);
 $routes->put('gallery/update(:num)', 'GalleryController::update/$1', ['as' => 'gallery.update']);
 $routes->delete('gallery/delete/(:num)', 'GalleryController::destroy/$1', ['as' => 'gallery.destroy']);

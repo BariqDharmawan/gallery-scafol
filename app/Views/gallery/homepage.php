@@ -7,26 +7,29 @@
             <?= session()->getFlashdata('message'); ?>
         </div>
     <?php endif; ?>
-    <ul class="nav justify-content-center mb-5">
+    <ul class="nav justify-content-center mb-5" id="filter-category">
         <li class="nav-item mr-3">
-            <a class="nav-link px-3 btn btn-light active" aria-current="page" href="#">All</a>
+            <a class="nav-link px-3 btn btn-light" aria-current="page" href="/">All</a>
         </li>
         <li class="nav-item mr-3">
-            <a class="nav-link px-4 btn btn-light" href="#">Jalan tol</a>
+            <a class="nav-link px-4 btn btn-light" href="/gallery/filter/jalan-tol">
+                Jalan tol
+            </a>
         </li>
         <li class="nav-item mr-3">
-            <a class="nav-link px-4 btn btn-light" href="#">Jembatan</a>
+            <a class="nav-link px-4 btn btn-light" href="/gallery/filter/jembatan">Jembatan</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link px-4 btn btn-light" href="#">Underpass</a>
+            <a class="nav-link px-4 btn btn-light" href="/gallery/filter/underpass">Underpass</a>
         </li>
     </ul>
     <div class="row">
         <?php foreach ($galleries as $gallery): ?>
             <div class="col-12 col-md-3 mb-3">
                 <div class="card mb-3 gallery-item">
-                    <img src="<?= $gallery['photo'] ?>" class="card-img-top" data-toggle="modal"
-                         data-target="#galleryDetail<?= $gallery['id'] ?>" alt="preview gallery" style="cursor: pointer">
+                    <img src="/img/<?= $gallery['cover'] ?>" class="card-img-top" data-toggle="modal"
+                         data-target="#galleryDetail<?= $gallery['id'] ?>"
+                         alt="preview gallery" style="cursor: pointer">
                     <div class="card-body d-flex justify-content-between">
                         <p class="card-text"><?= $gallery['pemilik'] ?></p>
                         <time><?= $gallery['created_at'] ?></time>
@@ -47,16 +50,9 @@
                                 <div class="row">
                                     <div class="col-12 col-md-6">
                                         <div class="gallery-carousel">
-                                            <div>
-                                                <img src="/img/jembatan.jpg" alt="..." width="100%">
-                                            </div>
-                                            <div>
-                                                <img src="https://cdn.pixabay.com/photo/2014/01/02/15/30/tunnel-237656_1280.jpg"
-                                                     alt="..." width="100%">
-                                            </div>
-                                            <div>
-                                                <img src="/img/tol1.jpg" alt="..." width="100%">
-                                            </div>
+                                                <div>
+                                                    <img src="/img/<?= 'jembatan.jpg'; ?>" alt="..." width="100%">
+                                                </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
@@ -74,7 +70,6 @@
                                                     aria-labelledby="gallery-detail__action">
                                                     <li>
                                                         <a class="dropdown-item editable-btn" href="#"
-
                                                            data-box-to-edit="#galleryCaption">
                                                             <img src="/img/pencil.svg" alt="Edit gallery">
                                                             Edit
@@ -94,14 +89,8 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div id="galleryCaption">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Mauris leo elit, sodales eu purus vitae, lobortis porta felis.
-                                            Maecenas sagittis velit lorem, in gravida diam feugiat non.
-                                            Cras faucibus posuere scelerisque. Vivamus vitae elit nec augue
-                                            feugiat pellentesque eget sit amet purus. Phasellus vestibulum porta
-                                            metus, id malesuada lorem pharetra sed. Fusce purus dolor,
-                                            lacinia sit amet placerat vel, varius convallis lacus.
+                                        <div id="galleryCaption<?= $gallery['id'] ?>">
+                                            <?= $gallery['caption'] ?>
                                         </div>
                                     </div>
                                 </div>

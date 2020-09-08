@@ -2,7 +2,7 @@
 
 use CodeIgniter\Database\Migration;
 
-class CreateGalleryMigration extends Migration
+class CreateGallerySlideshowMigration extends Migration
 {
 	public function up()
 	{
@@ -13,33 +13,26 @@ class CreateGalleryMigration extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'cover' => [
+            'photo' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
             ],
-            'caption' => [
-                'type' => 'TEXT',
-                'null' => true,
+            'gallery_id' => [
+                'type' => 'INT',
+                'constraint' => 5,
+                'unsigned' => true,
             ],
             'created_at datetime default current_timestamp',
-            'updated_at datetime default current_timestamp on update current_timestamp',
-            'category' => [
-                'type' => 'VARCHAR',
-                'constraint' => '20'
-            ],
-            'pemilik' => [
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-            ]
+            'updated_at datetime default current_timestamp on update current_timestamp'
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('gallery');
+        $this->forge->createTable('gallery_slideshow');
 	}
 
 	//--------------------------------------------------------------------
 
 	public function down()
 	{
-        $this->forge->dropTable('gallery');
+        $this->forge->dropTable('gallery_slideshow');
 	}
 }

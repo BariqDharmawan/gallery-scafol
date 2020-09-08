@@ -33,6 +33,19 @@ function positionCursor() {
     // Set cursor on focus 
     tag.focus();
 }
+function currentNav(navId) {
+    const current = window.location.href.split('#')[0];
+    const nav = document.getElementById(navId);
+    const navItem = nav.getElementsByTagName('a');
+    for (let itemElement of navItem) {
+        if(itemElement.href === current || itemElement.href === decodeURIComponent(current)) {
+            // Tambahkan kelas 'active' pada tautan tersebut
+            itemElement.classList.add("active");
+        }
+    }
+}
+
+currentNav('filter-category');
 
 const btnEditable = document.querySelectorAll('.editable-btn');
 btnEditable.forEach(eachBtn => {

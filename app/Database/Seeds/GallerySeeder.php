@@ -10,10 +10,9 @@ class GallerySeeder extends Seeder
 	{
         $faker = Factory::create();
         for ($i = 1; $i <= 30; $i++) {
-            $faker->addProvider(new PicsumPhotosProvider($faker));
             $data = [
-                'photo' => $faker->imageUrl(500, 500, true),
-                'category_id' => $faker->numberBetween($min = 1, $max = 4),
+                'cover' => $faker->randomElement(['jembatan.jpg', 'tol1.jpg', 'underpass.jpg']),
+                'category' => $faker->randomElement(['jalan-tol', 'jembatan', 'underpass']),
                 'caption' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
                 'pemilik' => $faker->firstName . $faker->lastName
             ];
