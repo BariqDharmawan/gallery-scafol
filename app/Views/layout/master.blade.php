@@ -42,7 +42,7 @@
         }
     </style>
 </head>
-<body id="<?= $this->renderSection('page-id'); ?>">
+<body id="@yield('page-id')">
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container-fluid">
         <a class="btn btn-warning text-white px-4" data-toggle="modal"
@@ -54,21 +54,26 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarGallery">
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item mx-3">
-                    <a class="nav-link btn px-4 btn-success text-white" aria-current="page" href="#">Foto</a>
+                    <a class="nav-link btn px-4 btn-light" aria-current="page"
+                       href="{{ route_to('gallery.index') }}">
+                        Foto
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn px-4 btn-light" aria-current="page" href="#">Video</a>
+                    <a class="nav-link btn px-4 btn-light" aria-current="page"
+                       href="{{ route_to('gallery.type', 'video') }}">
+                        Video
+                    </a>
                 </li>
                 <li class="nav-item ml-5">
-                    <a class="nav-link px-4 btn-light" href="#">Filter by</a>
+                    <span class="nav-link btn btn-transparent px-4">Filter by</span>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-
-<?= $this->renderSection('content'); ?>
-<?= $this->renderSection('component'); ?>
+@yield('content')
+@yield('component')
 <script crossorigin="anonymous"
         src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"></script>
@@ -76,7 +81,7 @@
         src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
         integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"></script>
 <script src="/js/moment.js"></script>
-<?= $this->renderSection('script'); ?>
+@yield('script')
 <script src="/js/native.js"></script>
 </body>
 </html>

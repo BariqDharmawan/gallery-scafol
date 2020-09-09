@@ -7,6 +7,7 @@ use App\Models\GallerySlideshowModel;
 use CodeIgniter\Controller;
 use App\Controllers\BaseController;
 use Config\Services;
+use Jenssegers\Blade\Blade;
 
 class GalleryController extends BaseController
 {
@@ -23,14 +24,13 @@ class GalleryController extends BaseController
     public function index()
     {
         session();
+        $blade = new Blade(APPPATH . 'Views', WRITEPATH . 'cache');
         $galleries = $this->galleryModel->getGallery();
         $data = [
-            'title' => 'Gallery',
             'galleries' => $galleries,
             'validation' => Services::validation()
         ];
-//        echo json_encode($galleries->toArray());
-        return view('gallery/homepage', $data);
+        return $blade->make('gallery.homepage', $data)->render();
     }
 
     public function store()
@@ -58,6 +58,9 @@ class GalleryController extends BaseController
                 ],
                 'category' => [
                     'rules' => 'required|max_length[20]'
+                ],
+                'type' => [
+                    'rules' => 'required|max_length[20]'
                 ]
             ]))
         {
@@ -66,7 +69,7 @@ class GalleryController extends BaseController
                 'cover' => $this->request->getPost('cover'),
                 'caption' => $this->request->getPost('caption'),
                 'category' => $this->request->getPost('category'),
-                'created_at' => date('Y-m-d H:i:s')
+                'type' => $this->request->getPost('type')
             ]);
 
             session()->setFlashdata('message', 'Berhasil menambahkan gallery baru');
@@ -89,26 +92,42 @@ class GalleryController extends BaseController
             'pemilik' => $this->request->getPost('pemilik')
         ];
         $model->updateProduct($data, $this->request->getPost('id'));
-        return redirect()->to('/product');
+        return redirect()->to(route_to('gallery.index'));
     }
 
     public function destroy($id)
     {
         $this->galleryModel->delete($id);
         session()->setFlashdata('message', 'Berhasil menghapus salah satu gallery');
-        return redirect()->to('/gallery');
+        return redirect()->to(route_to('gallery.index'));
     }
 
     public function filter($category)
     {
         session();
-        $galleries = $this->galleryModel->where('category', $category)->orderBy('id', 'DESC')->findAll();
+        $blade = new Blade(APPPATH . 'Views', WRITEPATH . 'cache');
+        $galleries = $this->galleryModel->where('category', $category)
+            ->join('gallery_slideshow','gallery_slideshow.gallery_id = gallery.id')
+            ->orderBy('gallery.id', 'DESC')->findAll();
         $data = [
-            'title' => 'Gallery',
             'galleries' => $galleries,
             'validation' => Services::validation()
         ];
-        return view('gallery/homepage', $data);
+        return $blade->make('gallery.homepage', $data)->render();
+    }
+
+    public function type($type)
+    {
+        session();
+        $blade = new Blade(APPPATH . 'Views', WRITEPATH . 'cache');
+        $galleries = $this->galleryModel->where('type', $type)
+            ->join('gallery_slideshow','gallery_slideshow.gallery_id = gallery.id')
+            ->orderBy('gallery.id', 'DESC')->findAll();
+        $data = [
+            'galleries' => $galleries,
+            'validation' => Services::validation()
+        ];
+        return $blade->make('gallery.homepage', $data)->render();
     }
     
 }

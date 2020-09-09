@@ -13,7 +13,7 @@ class CreateGallerySlideshowMigration extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'photo' => [
+            'content' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
             ],

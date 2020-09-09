@@ -1,11 +1,9 @@
 //homepage
 function galleryEditCaption(btnClicked) {
-    const dataTarget = btnClicked.dataset.boxToEdit;
-    const boxTarget = document.querySelector(dataTarget);
-    const addAttr = document.createAttribute('contenteditable');
-
-    addAttr.value = "true";
-    boxTarget.setAttributeNode(addAttr);
+    const dataTarget = btnClicked.getAttribute('data-box-to-edit').replace('#', '');
+    const boxTarget = document.querySelector('#' + '25');
+    console.log(boxTarget);
+    // boxTarget.setAttribute('contenteditable', 'true');
 }
 function positionCursor() {
 
@@ -46,19 +44,20 @@ function currentNav(navId) {
 }
 
 currentNav('filter-category');
+currentNav('navbarGallery');
 
 const btnEditable = document.querySelectorAll('.editable-btn');
 btnEditable.forEach(eachBtn => {
-    document.addEventListener('click', (event) => {
-        const isClickOnBtnEdit = eachBtn.contains(event.target) ||
-            document.querySelector(eachBtn.dataset.boxToEdit).contains(event.target);
-        if (isClickOnBtnEdit === false) {
-            document.querySelector(eachBtn.dataset.boxToEdit).removeAttribute('contenteditable');
-        }
-    });
+    // document.addEventListener('click', (event) => {
+    //     const isClickOnBtnEdit = eachBtn.contains(event.target);
+    //     if (!isClickOnBtnEdit) {
+    //         document.querySelector(eachBtn.getAttribute('data-box-to-edit')).removeAttribute('contenteditable');
+    //     }
+    // });
     eachBtn.addEventListener('click', () => {
+        console.log(eachBtn.getAttribute('data-box-to-edit'));
         galleryEditCaption(eachBtn);
-        positionCursor();
+        // positionCursor();
     });
 });
 

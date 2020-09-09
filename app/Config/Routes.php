@@ -30,11 +30,12 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('routing', function (){
-    print_r($this->router->routes);
+$routes->get('/', function (){
+   return redirect()->to(route_to('gallery.index'));
 });
-$routes->get('/', 'GalleryController::index', ['as' => 'gallery.index']);
+$routes->get('gallery/type/foto', 'GalleryController::index', ['as' => 'gallery.index']);
 $routes->get('gallery/filter/(:any)', 'GalleryController::filter/$1', ['as' => 'gallery.filter']);
+$routes->get('gallery/type/(:any)', 'GalleryController::type/$1', ['as' => 'gallery.type']);
 $routes->post('gallery/post', 'GalleryController::store', ['as' => 'gallery.store']);
 $routes->put('gallery/update(:num)', 'GalleryController::update/$1', ['as' => 'gallery.update']);
 $routes->delete('gallery/delete/(:num)', 'GalleryController::destroy/$1', ['as' => 'gallery.destroy']);

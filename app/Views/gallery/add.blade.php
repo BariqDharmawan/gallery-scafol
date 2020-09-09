@@ -9,9 +9,9 @@
             </div>
             <div class="modal-body pb-5">
                 <div class="container-fluid">
-                    <form action="<?= route_to('gallery.store') ?>" method="post"
+                    <form action="{{ route_to('gallery.store') }}" method="post"
                           id="form-add-gallery" class="row">
-                        <?= csrf_field(); ?>
+                        @csrf
                         <div class="col-12 col-md-6 pr-5">
                             <h5 class="modal-title mb-3" id="addNewGalleryLabel">Upload file</h5>
                             <div class="upload-drag-drop">
@@ -28,7 +28,7 @@
                         <div class="col-12 col-md-6 border-left pl-5 pt-5">
                             <div class="card__detail-header mb-3">
                                 <div class="mb-3">
-                                    <input class="form-control <?= $validation->hasError('caption') ? 'is-invalid' : '' ?>"
+                                    <input class="form-control {{ $validation->hasError('pemilik') ? 'is-invalid' : '' }}"
                                            type="text" name="pemilik" placeholder="Pemilik gallery" autofocus required>
                                 </div>
                                 <div class="mb-3">
@@ -40,7 +40,18 @@
                                     </div>
                                 </div>
                                 <div class="mb-5">
-                                    <select class="form-select <?= $validation->hasError('caption') ? 'is-invalid' : '' ?>"
+                                    <select class="form-select <?= $validation->hasError('type') ? 'is-invalid' : '' ?>"
+                                            name="type" required>
+                                        <option disabled selected>Tipe gallery</option>
+                                        <option value="foto">Foto</option>
+                                        <option value="video">Video</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Pilih tipe gallery
+                                    </div>
+                                </div>
+                                <div class="mb-5">
+                                    <select class="form-select <?= $validation->hasError('category') ? 'is-invalid' : '' ?>"
                                             name="category" required>
                                         <option disabled selected>Pilih tag</option>
                                         <option value="jalan-tol">Jalan tol</option>

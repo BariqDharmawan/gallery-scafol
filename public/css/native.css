@@ -28,3 +28,9 @@
     height: 100%;
     width: 100%;
 }
+
+#navbarGallery .nav-link.active {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+}

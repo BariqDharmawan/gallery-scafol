@@ -15,6 +15,8 @@ namespace App\Controllers;
  */
 
 use CodeIgniter\Controller;
+use Jenssegers\Blade\Blade;
+
 
 class BaseController extends Controller
 {
@@ -27,6 +29,7 @@ class BaseController extends Controller
 	 * @var array
 	 */
 	protected $helpers = [];
+
 
 	/**
 	 * Constructor.

@@ -14,7 +14,8 @@ class GallerySeeder extends Seeder
                 'cover' => $faker->randomElement(['jembatan.jpg', 'tol1.jpg', 'underpass.jpg']),
                 'category' => $faker->randomElement(['jalan-tol', 'jembatan', 'underpass']),
                 'caption' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
-                'pemilik' => $faker->firstName . $faker->lastName
+                'pemilik' => $faker->firstName . ' ' . $faker->lastName,
+                'type' => $faker->randomElement(['foto', 'video'])
             ];
             $this->db->table('gallery')->insert($data);
         }

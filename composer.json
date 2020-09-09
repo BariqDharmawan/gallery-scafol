@@ -9,7 +9,8 @@
 		"codeigniter4/framework": "^4",
 		"fzaninotto/faker": "^1.9",
 		"bluemmb/faker-picsum-photos-provider": "^1.0",
-		"myth/auth": "^1.0@beta"
+		"myth/auth": "^1.0@beta",
+		"jenssegers/blade": "^1.3"
 	},
 	"require-dev": {
 		"mikey179/vfsstream": "1.6.*",

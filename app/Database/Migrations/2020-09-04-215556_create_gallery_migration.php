@@ -30,6 +30,10 @@ class CreateGalleryMigration extends Migration
             'pemilik' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
+            ],
+            'type' => [
+                'type' => 'VARCHAR',
+                'constraint' => '20'
             ]
         ]);
         $this->forge->addKey('id', true);

@@ -11,11 +11,12 @@ class GalleryModel extends Model
     protected $primaryKey = 'id';
     protected $useTimestamps = true;
     protected $returnType = 'array';
-    protected $allowedFields = ['cover', 'caption', 'pemilik', 'category'];
+    protected $allowedFields = ['cover', 'caption', 'pemilik', 'category', 'type'];
     public function getGallery($id = false)
     {
         if ($id == false) {
-            return $this->orderBy('id', 'DESC')
+            return $this->join('gallery_slideshow','gallery_slideshow.gallery_id = gallery.id')
+                ->orderBy('gallery.id', 'DESC')
                 ->findAll();
         }
         return $this->where(['id', $id])
