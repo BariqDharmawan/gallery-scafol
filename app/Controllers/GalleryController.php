@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\GalleryModel;
 use App\Models\GallerySlideshowModel;
-use CodeIgniter\Controller;
 use App\Controllers\BaseController;
 use Config\Services;
 use Jenssegers\Blade\Blade;
@@ -12,20 +11,11 @@ use Jenssegers\Blade\Blade;
 class GalleryController extends BaseController
 {
 
-    protected $galleryModel;
-    protected $gallerySlideshowModel;
-
-    public function __construct()
-    {
-        $this->galleryModel = new GalleryModel();
-        $this->gallerySlideshowModel = new GallerySlideshowModel();
-    }
-
     public function index()
     {
         session();
-        $blade = new Blade(APPPATH . 'Views', WRITEPATH . 'cache');
-        $galleries = $this->galleryModel->getGallery();
+        $blade  = new Blade(APPPATH . 'Views', WRITEPATH . 'cache');
+        $galleries = GalleryModel::orderBy('id', 'ASC')->get();
         $data = [
             'galleries' => $galleries,
             'validation' => Services::validation()
@@ -64,16 +54,19 @@ class GalleryController extends BaseController
                 ]
             ]))
         {
-            $this->galleryModel->save([
+            $gallery = new GalleryModel;
+            $data = [
                 'pemilik' => $this->request->getPost('pemilik'),
                 'cover' => $this->request->getPost('cover'),
                 'caption' => $this->request->getPost('caption'),
                 'category' => $this->request->getPost('category'),
                 'type' => $this->request->getPost('type')
-            ]);
+            ];
+            $gallery->insert($data);
 
-            session()->setFlashdata('message', 'Berhasil menambahkan gallery baru');
-            return redirect()->to(route_to('gallery.index'));
+            return redirect()->to(route_to('gallery.index'))->with(
+                'message', 'Berhasil menambah gallery'
+            );
         }
         else {
             $validation = Services::validation();
@@ -84,22 +77,26 @@ class GalleryController extends BaseController
 
     public function update($id)
     {
-        $model = new GalleryModel();
         $data = [
             'caption' => $this->request->getPost('caption'),
             'photo' => $this->request->getPost('photo'),
             'category'=> $this->request->getPost('category'),
             'pemilik' => $this->request->getPost('pemilik')
         ];
-        $model->updateProduct($data, $this->request->getPost('id'));
-        return redirect()->to(route_to('gallery.index'));
+        GalleryModel::where('id', $id)->update($data);
+        return redirect()->to(route_to('gallery.index'))->with(
+            'message', 'berhasil update gallery'
+        );
     }
 
     public function destroy($id)
     {
-        $this->galleryModel->delete($id);
-        session()->setFlashdata('message', 'Berhasil menghapus salah satu gallery');
-        return redirect()->to(route_to('gallery.index'));
+        $gallery = GalleryModel::findOrFail($id);
+        $gallery->delete($id);
+
+        return redirect()->route('gallery.index')->with(
+            'message', "Berhasil menghapus salah satu gallery dengan pemilik $gallery->pemilik"
+        );
     }
 
     public function filter($category)
@@ -119,10 +116,8 @@ class GalleryController extends BaseController
     public function type($type)
     {
         session();
-        $blade = new Blade(APPPATH . 'Views', WRITEPATH . 'cache');
-        $galleries = $this->galleryModel->where('type', $type)
-            ->join('gallery_slideshow','gallery_slideshow.gallery_id = gallery.id')
-            ->orderBy('gallery.id', 'DESC')->findAll();
+        $galleries = GalleryModel::where('type', $type)->orderBy('gallery.id', 'DESC')->get();
+        $blade  = new Blade(APPPATH . 'Views', WRITEPATH . 'cache');
         $data = [
             'galleries' => $galleries,
             'validation' => Services::validation()

@@ -15,6 +15,7 @@ namespace App\Controllers;
  */
 
 use CodeIgniter\Controller;
+use Config\Services;
 use Jenssegers\Blade\Blade;
 
 
@@ -30,7 +31,6 @@ class BaseController extends Controller
 	 */
 	protected $helpers = [];
 
-
 	/**
 	 * Constructor.
 	 */
@@ -44,6 +44,7 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.:
 		// $this->session = \Config\Services::session();
+        service('eloquent');
 	}
 
 }

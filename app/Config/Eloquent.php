@@ -8,7 +8,6 @@ class Eloquent
 {
     function __construct()
     {
-
         $capsule = new Capsule;
         $db_config = config('Database');
         // // DBDriver
